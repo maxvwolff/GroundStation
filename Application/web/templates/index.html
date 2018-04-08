@@ -1,15 +1,23 @@
 <!--<!doctype html> -->
 <html> 
-	<head></head>
+	<head>
+		<script src="../static/main.js"></script>
+		<script> 
+			//function myFunction() {
+			//document.getElementById("response").innerHTML = "Enter Something";
+		//}
+		</script>
+	</head>
 	<body>
 		
 		<h1>Tracking Satellites</h1>
-		<input id="Line1" type="text">Line1</input>
+		<input id="line1" type="text">Line1</input>
 		<input id="line2" type="text">Line1</input>
 		<input id="line3" type="text">Line1</input>
-		<button id="trackSatellite">Track satellite now!</button>
-		<button id="trackingList">Put the satellite on the tracking list!</button>
+		<button id="trackSatellite" onclick="trackSatellite()">Track satellite now! </button>
+		<button id="trackingList" onclick="myFunction()">Put the satellite on the tracking list!</button>
 		<p id="response">Search for your Satellite!</p>
 		<a href="insertLinkHere">Show the tracking list!</a>
 	</body>
 </html>
+
