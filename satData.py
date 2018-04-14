@@ -8,9 +8,10 @@ def getSatData(satType):
 	url = "http://www.celestrak.com/NORAD/elements/" + str(satType) + ".txt"
 
 	TLEdata = []
-	data = urllib2.urlopen(url) # it's a file like object
+	data = urlopen(url) # it's a file like object
 	currentSat = []
 	for line in data:
+		line = line.decode()
 		if line != None:
 			line = line.join(line.splitlines())
 			currentSat.append(line)
@@ -19,4 +20,4 @@ def getSatData(satType):
 				currentSat = []
 	return TLEdata
 
-#print(getSatData("amateur"))
+print(getSatData("cubesat"))
