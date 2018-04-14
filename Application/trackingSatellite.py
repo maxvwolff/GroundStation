@@ -82,13 +82,13 @@ class Satellite(object):
 		elevation = self.ephemObject.elevation/1000.
 		return altitude, azimuth, elevation, latitude, longitude
 
-	def getRiseTime(self, obsLat, obsLong):
+	def getRiseAndSetTime(self, obsLat, obsLong):
 		observer = ephem.Observer()
 		observer.lat = ephem.degrees(obsLat)
 		observer.long = ephem.degrees(obsLong)
 		
 		riseTime, riseAzimuth, maximumAltitudeTime, maximumAltitude, setTime, setAzimuth = observer.next_pass(self.ephemObject)
-		return riseTime
+		return riseTime, setTime
 
 
 

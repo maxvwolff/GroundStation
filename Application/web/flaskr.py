@@ -1,5 +1,8 @@
 from flask import Flask, render_template
-import satData 
+import satData #not sure about importing
+from trackingSatelite import Satellite 
+
+
 app = Flask(__name__)
 
 @app.after_request
@@ -23,12 +26,32 @@ def static_page():
 def static_page():
 	#you have to take the satellite type as an input
 	allSatData = getSatData(satType)
+    finalList = []
+    counter = 0
+    latitude = "50.322959"
+    longitude = "7.265666"
 	#go through allSatData
 	for i in allSatData:
-		name = i[0]
-		line1 = i[1]
-		line2 = i[2]
-    return [1,2,3]
+
+        finalList.append([])
+		line1 = i[0]
+		line2 = i[1]
+		line3 = i[2]
+
+        satellite = Satellite(line1, line2, line3)
+
+
+        startTime, endTime = satellite.getRiseTime(self, latitude, longitude)
+        #frequency = 
+
+        finalList[counter].append(line1)
+        finalList[counter].append(line2)
+        finalList[counter].append(line3)
+        finalList[counter].append(startTime)
+        finalList[counter].append(endTime)
+
+        counter += 1
+    return finalList
 
 if __name__ == '__main__':
     app.run()
