@@ -1,0 +1,54 @@
+<!--<!doctype html> -->
+<html> 
+	<head>
+		<script src="../static/main.js"></script>
+
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="../static/css/materialize.min.css"  media="screen,projection"/>
+
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+	<body>
+		
+		<div class="container">
+			<h1>SatTrack Control</h1>
+			<div class="row">
+				<div class="col s6">
+					<div class="card-panel">
+						<p>Tracking MyCube...</p>
+						<div class="progress">
+							<div class="determinate" style="width: 70%"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col s6">
+					<div class="card-panel">
+						<h4>UPCOMING SATELLITES</h4>
+						<div class="collection">
+					    <div class="collection-item active #01579b light-blue darken-4"><h6>MyCube [12345]</h6> <p><br> Starting at: date  Max elevation at: date  Ending at: date <br> Beacon: freq MHz  Downlink: freq MHz</p>   <a class="btn-floating waves-effect waves-light blue" style="margin-top: -142px; float: right;"><i class="material-icons">center_focus_strong</i></a></div>
+
+					    <div class="collection-item active #01579b light-blue darken-4"><h6>MyCube [12345]</h6> <p><br> Starting at: date  Max elevation at: date  Ending at: date <br> Beacon: freq MHz  Downlink: freq MHz</p>   <a class="btn-floating waves-effect waves-light blue" style="margin-top: -142px; float: right;"><i class="material-icons">center_focus_strong</i></a></div>
+					    <div class="collection-item active #01579b light-blue darken-4"><h6>MyCube [12345]</h6> <p><br> Starting at: date  Max elevation at: date  Ending at: date <br> Beacon: freq MHz  Downlink: freq MHz</p>   <a class="btn-floating waves-effect waves-light blue" style="margin-top: -142px; float: right;"><i class="material-icons">center_focus_strong</i></a></div>
+					    <div class="collection-item active #01579b light-blue darken-4"><h6>MyCube [12345]</h6> <p><br> Starting at: date  Max elevation at: date  Ending at: date <br> Beacon: freq MHz  Downlink: freq MHz</p>   <a class="btn-floating waves-effect waves-light blue" style="margin-top: -142px; float: right;"><i class="material-icons">center_focus_strong</i></a></div>
+						</div>
+					</div>
+				</div>
+		    </div>
+			<input id="line1" type="text">Line1</input>
+			<input id="line2" type="text">Line1</input>
+			<input id="line3" type="text">Line1</input>
+			<a id="trackSatellite" class="btn waves-effect waves-light" onclick="trackSatellite()">Track satellite now!</a>
+			<a id="trackingList" onclick="myFunction()">Put the satellite on the tracking list!</a>
+			<p id="response">Search for your Satellite!</p>
+			<a href="insertLinkHere">Show the tracking list!</a>
+
+			<!--JavaScript at end of body for optimized loading-->
+			<script type="text/javascript" src="js/materialize.min.js"></script>
+		</div>
+	</body>
+</html>
+
