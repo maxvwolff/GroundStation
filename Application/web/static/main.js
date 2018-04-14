@@ -1,3 +1,7 @@
+function init() {
+
+}
+
 function myFunction() {
 	document.getElementById("response").innerHTML = "Enter Something";
 		}
