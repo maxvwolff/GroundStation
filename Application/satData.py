@@ -1,4 +1,5 @@
-from urllib.request import urlopen
+#from urllib.request import urlopen
+import urllib2
 
 def getSatData(satType):
 	'''
@@ -14,7 +15,7 @@ def getSatData(satType):
 		if line != None:
 			line = line.join(line.splitlines())
 			currentSat.append(line)
-			if line[0] == '2':
+			if line[0] == '2' or len(line) == 3:
 				TLEdata.append(currentSat)
 				currentSat = []
 	return TLEdata

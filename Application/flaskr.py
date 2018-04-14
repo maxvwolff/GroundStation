@@ -1,4 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
+
+from satData import getSatData#not sure about importing
+from trackingSatellite import Satellite 
 
 
 app = Flask(__name__)
@@ -18,6 +21,44 @@ def add_header(r):
 @app.route('/control')
 def static_page():
     return render_template('index.html')
+
+#when new list is needed from the client
+@app.route('/getlist', methods=['POST'])
+def getList():
+    #you have to take the satellite type as an input
+    satType = "cubesat"
+    allSatData = getSatData(satType)
+    finalList = []
+    counter = 0
+    latitude = "50.322959"
+    longitude = "7.265666"
+    #go through allSatData
+    for i in allSatData:
+
+        finalList.append([])
+        line1 = i[0]
+        line2 = i[1]
+        line3 = i[2]
+
+        satellite = Satellite(line1, line2, line3)
+
+        startTime, endTime = None, None
+
+        try:
+            startTime, endTime = satellite.getRiseAndSetTime(latitude, longitude)
+        except:
+            pass
+        #frequency = 
+
+        finalList[counter].append(line1)
+        finalList[counter].append(line2)
+        finalList[counter].append(line3)
+        finalList[counter].append(startTime)
+        finalList[counter].append(endTime)
+
+        counter += 1
+
+    return jsonify(success=1, output=finalList)
 
 if __name__ == '__main__':
     app.run()

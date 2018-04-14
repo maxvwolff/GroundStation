@@ -1,6 +1,17 @@
-function init() {
+//like an init function
+$(document).ready(function() {
+	$.ajax({
+	type: "POST",
+	url: "/getlist",
+	data: "{}",
+	contentType: "application/json; charset=utf-8",
+	dataType: "json",
+	success: function(msg) {
+	  console.log(msg);
+	 }
+	});
+});
 
-}
 
 function myFunction() {
 	document.getElementById("response").innerHTML = "Enter Something";
