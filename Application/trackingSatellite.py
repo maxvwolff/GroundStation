@@ -67,12 +67,12 @@ class Satellite(object):
 		self.line3 = line3
 		self.ephemObject = ephem.readtle(self.line1, self.line2, self.line3)
 
-	def getPosition(self, time, observer2):
+	def getPosition(self, time, obsLat, obsLong):
 		#observer.date = time
 		observer = ephem.Observer()
 
-		observer.lat = ephem.degrees("50.322959")
-		observer.long = ephem.degrees("7.265666")
+		observer.lat = ephem.degrees(obsLat)
+		observer.long = ephem.degrees(obsLong)
 		self.ephemObject.compute(observer)
 
 		altitude = math.degrees(self.ephemObject.alt)
@@ -82,8 +82,11 @@ class Satellite(object):
 		elevation = self.ephemObject.elevation/1000.
 		return altitude, azimuth, elevation, latitude, longitude
 
-	def getRiseTime(self, observer):
-		print("In function")
+	def getRiseTime(self, obsLat, obsLong):
+		observer = ephem.Observer()
+		observer.lat = ephem.degrees(obsLat)
+		observer.long = ephem.degrees(obsLong)
+		
 		riseTime, riseAzimuth, maximumAltitudeTime, maximumAltitude, setTime, setAzimuth = observer.next_pass(self.ephemObject)
 		return riseTime
 
