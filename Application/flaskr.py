@@ -3,6 +3,7 @@ from flask import Flask, render_template, jsonify
 from satData import getSatData#not sure about importing
 from trackingSatellite import Satellite 
 
+import datetime
 
 app = Flask(__name__)
 
@@ -34,8 +35,6 @@ def getList():
     longitude = "7.265666"
     #go through allSatData
     for i in allSatData:
-
-        finalList.append([])
         line1 = i[0]
         line2 = i[1]
         line3 = i[2]
@@ -45,16 +44,28 @@ def getList():
         startTime, endTime = None, None
 
         try:
+
+
+            #riseTime = sat.getRiseAndSetTime(observer).tuple()
+            #riseDate = datetime.datetime(riseTime[0], riseTime[1], riseTime[2], riseTime[3], riseTime[4], int(riseTime[5]))
+            #startTime, endTime = satellite.getRiseAndSetTime(latitude, longitude)
             startTime, endTime = satellite.getRiseAndSetTime(latitude, longitude)
+            startTime, endTime = startTime.tuple(), endTime.tuple()
+            riseDate = datetime.datetime(startTime[0], startTime[1], startTime[2], startTime[3], startTime[4], int(startTime[5]))
+            setDate = datetime.datetime(endTime[0], endTime[1], endTime[2], endTime[3], endTime[4], int(endTime[5]))
         except:
-            pass
+            print("skipped!")
+            continue
         #frequency = 
+        #if it won't be in the sky, don't add it to the list
+
+        finalList.append([])
 
         finalList[counter].append(line1)
         finalList[counter].append(line2)
         finalList[counter].append(line3)
-        finalList[counter].append(startTime)
-        finalList[counter].append(endTime)
+        finalList[counter].append(riseDate.timestamp())
+        finalList[counter].append(setDate.timestamp())
 
         counter += 1
 
