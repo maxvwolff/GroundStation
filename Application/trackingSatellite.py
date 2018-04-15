@@ -67,7 +67,7 @@ class Satellite(object):
 		self.line3 = line3
 		self.ephemObject = ephem.readtle(self.line1, self.line2, self.line3)
 
-	def getPosition(self, time, obsLat, obsLong):
+	def getPosition(self, obsLat, obsLong):
 		#observer.date = time
 		observer = ephem.Observer()
 

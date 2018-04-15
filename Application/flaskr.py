@@ -50,6 +50,9 @@ def getList():
             setDate = datetime.datetime(endTime[0], endTime[1], endTime[2], endTime[3], endTime[4], int(endTime[5]))
         except:
             continue
+
+        alt, azi, ele, lat, lon = satellite.getPosition(latitude, longitude)
+
         #if it won't be in the sky, don't add it to the list
         finalList.append([])
 
@@ -58,6 +61,11 @@ def getList():
         finalList[counter].append(line3)
         finalList[counter].append(riseDate.timestamp())
         finalList[counter].append(setDate.timestamp())
+        finalList[counter].append(alt)
+        finalList[counter].append(azi)
+        finalList[counter].append(ele)
+        finalList[counter].append(lat)
+        finalList[counter].append(lon)
 
         counter += 1
 
