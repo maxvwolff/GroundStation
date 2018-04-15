@@ -26,11 +26,13 @@ $(document).ready(function() {
 
 	  //now change text in HTML
 	  var htmlString = ""
-	  for (i in newList) {
-	  var startDate = new Date(i[3])
-	  var endDate = new Date(i[4])
-	   htmlString += "<div class='collection-item active #01579b light-blue darken-4'><h6>" + newList[i][0] + " 12345 </h6> <p><br> Starting at: " + startDate.toTimeString()+ "  <br>Ending at: "+ endDate.toTimeString() + "</div> <br> Beacon: 145.800 MHz  Downlink: 437.540 MHz</p>   <a class='btn-floating waves-effect waves-light blue' style='margin-top: -142px; float: right;'><i class='material-icons'>center_focus_strong</i></a></div>";
-}
+	  for (var i = 0; i < newList.length; i++) {
+		  var startDate = new Date(newList[i][3] * 1000 + 7200000);
+		  var endDate = new Date(newList[i][4] * 1000 + 7200000);
+		  console.log(startDate);
+		   htmlString += "<div class='collection-item active #01579b light-blue darken-4'><h6>" + newList[i][0] + " [12345] </h6> <p><br> Starting at: " + startDate.toTimeString()+ "  <br>Ending at: "+ endDate.toTimeString() + "<br> Beacon: 145.800 MHz  Downlink: 437.540 MHz</p>   <a class='btn-floating waves-effect waves-light blue' style='margin-top: -142px; float: right;'><i class='material-icons'>center_focus_strong</i></a></div>";
+	  }
+	  document.getElementById("satList").innerHTML = htmlString;
 	 }
 	});
 });

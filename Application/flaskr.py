@@ -44,21 +44,13 @@ def getList():
         startTime, endTime = None, None
 
         try:
-
-
-            #riseTime = sat.getRiseAndSetTime(observer).tuple()
-            #riseDate = datetime.datetime(riseTime[0], riseTime[1], riseTime[2], riseTime[3], riseTime[4], int(riseTime[5]))
-            #startTime, endTime = satellite.getRiseAndSetTime(latitude, longitude)
             startTime, endTime = satellite.getRiseAndSetTime(latitude, longitude)
             startTime, endTime = startTime.tuple(), endTime.tuple()
             riseDate = datetime.datetime(startTime[0], startTime[1], startTime[2], startTime[3], startTime[4], int(startTime[5]))
             setDate = datetime.datetime(endTime[0], endTime[1], endTime[2], endTime[3], endTime[4], int(endTime[5]))
         except:
-            print("skipped!")
             continue
-        #frequency = 
         #if it won't be in the sky, don't add it to the list
-
         finalList.append([])
 
         finalList[counter].append(line1)
