@@ -19,7 +19,7 @@ def add_header(r):
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
 
-@app.route('/control')
+@app.route('/')
 def static_page():
     return render_template('index.html')
 
@@ -64,6 +64,6 @@ def getList():
     return jsonify(success=1, output=finalList)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=80)
 
 
