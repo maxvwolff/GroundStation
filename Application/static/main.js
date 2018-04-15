@@ -33,33 +33,39 @@ $(document).ready(function() {
 		   htmlString += "<div class='collection-item active #01579b light-blue darken-4'><h6>" + newList[i][0] + " [12345] </h6> <p><br> Starting at: " + startDate.toTimeString()+ "  <br>Ending at: "+ endDate.toTimeString() + "<br> Beacon: 145.800 MHz  Downlink: 437.540 MHz</p>   <a class='btn-floating waves-effect waves-light blue' style='margin-top: -142px; float: right;'><i class='material-icons'>center_focus_strong</i></a></div>";
 	  }
 	  document.getElementById("satList").innerHTML = htmlString;
+	  document.getElementById("listloader").style.display = "none";
 	 }
 	});
 });
 
+var i = 0;
+var map = null;
+var marker = null;
 
-function myFunction() {
-	document.getElementById("response").innerHTML = "Enter Something";
-		}
-
-function trackSatellite() {
-	//check if data is correct or id something is missing
-	//document.getElementById("response").innerHTML = document.getElementById("line1").value;
-
-
-
-	if (document.getElementById("line1").value == "") {
-		document.getElementById("response").innerHTML = "line 1 is missing";
-	} else if (document.getElementById("line2").value == "") {
-		document.getElementById("response").innerHTML = "line 2 is missing";
-	} else if (document.getElementById("line3").value == "") {
-		document.getElementById("response").innerHTML = "line 3 is missing";
+function updateMap() {
+	console.log("!");
+	if (map != null && marker != null) {
+		moveSat(map, marker, 50.323035 + i, 7.265747 + i);
+		i += 0.001;
 	}
-
-
-
-	//send it to the ground station
-
-
 }
 
+var interval = setInterval(updateMap, 500);
+
+function initMap() {
+	console.log("Init map...");
+	var sat = {lat: 50.323035, lng: 7.265747};
+	map = new google.maps.Map(document.getElementById('map'), {
+	  zoom: 4,
+	  center: sat
+	});
+	marker = new google.maps.Marker({
+	  position: sat,
+	  map: map
+	});
+}
+
+function moveSat(map, marker, lat, lon) {
+    marker.setPosition( new google.maps.LatLng( lat, lon ) );
+    map.panTo( new google.maps.LatLng( lat, lon ) );
+}
