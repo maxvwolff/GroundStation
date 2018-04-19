@@ -11,6 +11,7 @@ var sat_startTime = null;
 var sat_endTime = null;
 var sat_lat = null;
 var sat_lon = null;
+var sat_ele = null;
 var tracking = false;
 
 function Comparator(a, b) {
@@ -36,11 +37,14 @@ function updateSatInfo() {
 	if (sat_startTime != null) {
 		var now = new Date();
 		var secondsToTrack = (sat_startTime - now) / 1000;
-		if (secondsToTrack > 0) {
+		//have to change here to show the right time 
+		//maybe different condition
+		if (sat_ele < 0) {
 			document.getElementById("satInfo").style.display = "block";
-			document.getElementById("satInfo").innerHTML = "The satellite will be in tracked in <strong>" + Math.round(secondsToTrack) + " s</strong> !";
+			document.getElementById("satInfo").innerHTML = "The satellite will be tracked in <strong>" + Math.round(secondsToTrack) + " s</strong> !";
 		} else {
-			document.getElementById("satInfo").style.display = "none";
+			var durationTracking = (sat_endTime - now) / 1000;
+			document.getElementById("satInfo").innerHTML = "The satellite will be tracked for <strong>" + Math.round(durationTracking) + " s</strong> !";
 		}
 	}
 }
@@ -95,12 +99,13 @@ function updateSatList() {
 		  	// Sat is above horizon
 		  	satAboveList.push(satInfo);
 
-		  	aboveStr += "<div id=satAbove_" + norad_id + " class='collection-item active light-blue darken-2'><h6>" + newList[i][0] + " [" + norad_id + "] </h6> <p><br> Started at: " + startDate.toTimeString()+ "  <br>Ending at: "+ endDate.toTimeString() + "<br> Beacon: 145.800 MHz  Downlink: 437.540 MHz</p>   <a onclick='trackSat(" + norad_id + ", \"" + sat_name + "\")' class='trackBtn btn-floating " + hideBtnStr + "waves-effect waves-light blue' style='margin-top: -142px; float: right;'><i class='material-icons'>center_focus_strong</i></a></div>";
+		  	aboveStr += "<div id=satAbove_" + norad_id + " class='collection-item active light-blue darken-2'><h6>" + newList[i][0] + " [" + norad_id + "] </h6> <p><br>Ending at: "+ endDate.toTimeString() + "<br> Beacon: 145.800 MHz  Downlink: 437.540 MHz</p>   <a onclick='trackSat(" + norad_id + ", \"" + sat_name + "\")' class='trackBtn btn-floating " + hideBtnStr + "waves-effect waves-light blue' style='margin-top: -142px; float: right;'><i class='material-icons'>center_focus_strong</i></a></div>";
 		  }
 
 		  if (norad_id == sat_id) {
 		  	sat_lat = lat;
 		  	sat_lon = lon;
+		  	sat_ele = ele;
 		  }
 		}
 

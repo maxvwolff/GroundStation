@@ -1,4 +1,7 @@
+#import urllib
 from urllib.request import urlopen
+#from urllib import urlopen
+#it says urllib.request is deprecated
 #import urllib2
 
 def getSatData(satType):
