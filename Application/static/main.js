@@ -99,7 +99,7 @@ function updateSatList() {
 		  	// Sat is above horizon
 		  	satAboveList.push(satInfo);
 
-		  	aboveStr += "<div id=satAbove_" + norad_id + " class='collection-item active light-blue darken-2'><h6>" + newList[i][0] + " [" + norad_id + "] </h6> <p><br>Ending at: "+ endDate.toTimeString() + "<br> Beacon: 145.800 MHz  Downlink: 437.540 MHz</p>   <a onclick='trackSat(" + norad_id + ", \"" + sat_name + "\")' class='trackBtn btn-floating " + hideBtnStr + "waves-effect waves-light blue' style='margin-top: -142px; float: right;'><i class='material-icons'>center_focus_strong</i></a></div>";
+		  	aboveStr += "<div id=satAbove_" + norad_id + " class='collection-item active light-blue darken-2'><h6>" + newList[i][0] + " [" + norad_id + "] </h6> <p><br>Ending at: "+ endDate.toTimeString() + "<br> Beacon: 145.800 MHz  Downlink: 437.540 MHz</p>   <a onclick='trackSat(" + norad_id + ", \"" + sat_name + "\")' class='trackBtn btn-floating " + hideBtnStr + "waves-effect waves-light blue' style='margin-top: -120px; float: right;'><i class='material-icons'>center_focus_strong</i></a></div>";
 		  }
 
 		  if (norad_id == sat_id) {
