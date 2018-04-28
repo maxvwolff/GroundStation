@@ -47,7 +47,11 @@ function updateMap() {
 
 //here the information the tracking list contains will pe displayed
 function updateSatInfo() {
-	if (sat_startTime != null) {
+	if (sat_startTime != null && tracking) {
+		//tracking = true;
+		document.getElementById("trackPanel").style.display = "block";
+		document.getElementById("currentSatName").innerHTML = sat_name;
+
 		var now = new Date();
 		var secondsToTrack = (sat_startTime - now) / 1000;
 		//have to change here to show the right time 
@@ -59,6 +63,8 @@ function updateSatInfo() {
 			var durationTracking = (sat_endTime - now) / 1000;
 			document.getElementById("satInfo").innerHTML = "The satellite will be tracked for <strong>" + Math.round(durationTracking) + " s</strong> !";
 		}
+	} else {
+		document.getElementById("trackPanel").style.display = "none";
 	}
 }
 
@@ -108,11 +114,13 @@ function updateSatList() {
 		  if (tracking) {
 		  	hideBtnStr = "disabled ";
 		  }
-		  //adding to the SatList
-		  htmlString += "<div id=sat_" + norad_id + " class='collection-item active #01579b light-blue darken-4'><h6>" + newList[i][0] + " [" + norad_id + "] </h6> <p><br> Starting at: " + startDate.toTimeString()+ "  <br>Ending at: "+ endDate.toTimeString() + "<br> Beacon: 145.800 MHz  Downlink: 437.540 MHz</p>   <a onclick='trackSat(" + norad_id + ", \"" + sat_name + "\")' class='trackBtn btn-floating " + hideBtnStr + "waves-effect waves-light blue' style='margin-top: -142px; float: right;'><i class='material-icons'>center_focus_strong</i></a></div>";
 
 		  var satInfo = [norad_id, sat_name, startDate, endDate, alt, azi, ele, lat, lon];
 		  satList.push(satInfo);
+
+
+		  //adding to the SatList
+		  htmlString += "<div id=sat_" + norad_id + " class='collection-item active #01579b light-blue darken-4'><h6>" + newList[i][0] + " [" + norad_id + "] </h6> <p><br> Starting at: " + startDate.toTimeString()+ "  <br>Ending at: "+ endDate.toTimeString() + "<br> Beacon: 145.800 MHz  Downlink: 437.540 MHz</p>   <a onclick='addToTrackingList(\"" + satInfo + "\")' class='trackBtn btn-floating " + hideBtnStr + "waves-effect waves-light blue' style='margin-top: -142px; float: right;'><i class='material-icons'>center_focus_strong</i></a></div>";
 
 		  if (ele > 0) {
 		  	// Sat is above horizon
@@ -167,7 +175,11 @@ function moveSat(map, marker, lat, lon) {
     map.panTo( new google.maps.LatLng( lat, lon ) );
 }
 
-function addToTrackingList(satellite/*satelllite from newList*/) {
+function addToTrackingList(satelliteStr/*satelllite from newList*/) {
+	console.log("SATELLITE:",satelliteStr);
+	satellite = satelliteStr.split(',');
+	satellite[2] = new Date(Date.parse(satellite[2]));
+	satellite[3] = new Date(Date.parse(satellite[3]));
 	console.log("valid satellite:", satellite);
 
 	var satelliteDate = Date.parse(satellite[2]);
@@ -257,7 +269,7 @@ function updateTrackingList() {
 	//if the satellite at the first place is the same like the satellite that's currently tracked, remove it from the list
 	currentDate = new Date();
 	currentTime = currentDate.getTime();
-	//checkout if trackingList already contain ssomething
+	//checkout if trackingList already contain something
 	if (trackingList.length == 0) {
 		console.log("NO trackingList yet!");
 		$("#trackingList").html("");
@@ -270,7 +282,7 @@ function updateTrackingList() {
 			console.log("Have to delete satellite");
 			console.log("startTime:", trackingList[0][2].getTime());
 			console.log("currentTime:", currentTime);
-			//track the satellite
+			trackSat(trackingList[0][0], trackingList[0][1]);
 			//remove the satellite fom the list
 			trackingList.splice(0, 1);
 			console.log(trackingList);
@@ -325,21 +337,12 @@ function deleteSatelliteFromTrackingList(norad_id) {
 
 
 //will only be called if clicked on satellite which is already in the sky
-function trackSat(norad_id, sat_name) { //will be changed to allow lists
-
-	
-	//tracking = true;
-	document.getElementById("trackPanel").style.display = "block";
-	var btn_ele = document.getElementsByClassName('trackBtn');
-
-	document.getElementById("currentSatName").innerHTML = sat_name;
-
-
-
+function trackSat(norad_id, sat_name_) { //will be changed to allow lists
+	console.log("HARDWARE IS TRACKING: ", sat_name_);
 	// global vars
 	sat_id = norad_id;
-	sat_name = sat_name;
-
+	sat_name = sat_name_;
+	tracking = true;
 
 	for (var i = 0; i < satList.length; i++) {
 		var satInfo = satList[i];
@@ -350,7 +353,6 @@ function trackSat(norad_id, sat_name) { //will be changed to allow lists
 			sat_lon = satInfo[8];
 
 			satellite = satInfo;
-			addToTrackingList(satellite)
 		}
 	}
 }
