@@ -24,12 +24,17 @@
 			<h1>SatTrack Control</h1>
 			<div class="row">
 				<div class="col s6">
+					<div id="rotorPanel" class="card-panel">
+						<p>Rotor connected.</p>
+						<p>Azimuth: <strong><a id="azi">263.7 °</a></strong></p>
+						<p>Elevation: <strong><a id="ele">13.2 °</a></strong></p>
+					</div>
 					<div id="trackPanel" style="display: none;" class="card-panel">
 						<p>Tracking <a id="currentSatName">MyCube</a>...</p>
 						<div class="progress">
 							<div class="determinate blue" style="width: 70%"></div>
 						</div>
-						<p id="satInfo" style="display:none;"></p>
+						<p id="satInfo"></p>
 						
 						<a onclick="cancelTrack()" class="waves-effect waves-light red btn"><i class="material-icons left">close</i>Cancel</a>
 					</div>
