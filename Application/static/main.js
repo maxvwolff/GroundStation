@@ -175,11 +175,13 @@ function addToTrackingList(satellite/*satelllite from newList*/) {
 	index = 0;
 	if (satelliteDate > satelliteEndDate) {
 		console.log("End is before next start! Impossible to add (yet)!");
+
 	}
 	//check if trackingList already contains something
 	
 	else if (trackingList.length == 0) {
 		trackingList.splice(index, 0, satellite);
+		alert("Sucessfully added a satellite to the tracking list.");
 	} else {
 	
 	for (var i = 0; i < trackingList.length + 1; i++) {
@@ -194,8 +196,10 @@ function addToTrackingList(satellite/*satelllite from newList*/) {
 				if (satelliteDate > Date.parse(trackingList[i][3])){
 					console.log("It doesn't collide. Let's add the satellite");
 					trackingList.splice(index + 1, 0, satellite);
+					alert("Sucessfully added a satellite to the tracking list.");
 					break;
 				}else{
+					alert("It's impossible to track satellites which are above horizon at the same time. \nTry to add another one");
 					console.log("It would collide");
 					break;
 				}
@@ -219,9 +223,11 @@ function addToTrackingList(satellite/*satelllite from newList*/) {
 				console.log("satelliteEndDate",satelliteEndDate, "startDateTrackingList", Date.parse(trackingList[i][3]));
 				//now check out if it finished before the next starts
 				if (satelliteEndDate < Date.parse(trackingList[i][2])) {
+					alert("Sucessfully added a satellite to the tracking list.");
 					console.log("Doesn't collide");
 					trackingList.splice(index, 0, satellite);
 				}else{
+					alert("It's impossible to track satellites which are above horizon at the same time. \nTry to add another one");
 					console.log("Error, two satellites collide!");
 				}
 				
@@ -236,12 +242,15 @@ function addToTrackingList(satellite/*satelllite from newList*/) {
 				if (satelliteEndDate < Date.parse(trackingList[i][2])) {
 					
 					console.log("Doesn't collide");
+					alert("Sucessfully added a satellite to the tracking list.");
 					trackingList.splice(index, 0, satellite);
 				}else{
 					console.log("Error, two satellites collide!");
+					alert("It's impossible to track satellites which are above horizon at the same time. \nTry to add another one");
 				}
 			} else {
 				console.log("Error, two satellites collide");
+				alert("It's impossible to track satellites which are above horizon at the same time. \nTry to add another one");
 			}
 			break;
 
@@ -271,6 +280,7 @@ function updateTrackingList() {
 			console.log("startTime:", trackingList[0][2].getTime());
 			console.log("currentTime:", currentTime);
 			//track the satellite
+			//trackSat();
 			//remove the satellite fom the list
 			trackingList.splice(0, 1);
 			console.log(trackingList);
@@ -321,6 +331,8 @@ function deleteSatelliteFromTrackingList(norad_id) {
 
 	}
 }
+
+
 
 
 
